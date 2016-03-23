@@ -16,6 +16,8 @@
 package com.airhacks.porcupine.execution.entity;
 
 import com.airhacks.porcupine.execution.control.InstrumentedThreadPoolExecutor;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -40,6 +42,13 @@ public class Pipeline {
     }
 
     public Statistics getStatistics() {
+        String hostName;
+        try {
+            hostName = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException ex) {
+            hostName = System.getenv().get("hostname");
+        }
+        if (hostName == null || hostName.isEmpty()) hostName = "unknown";
         int remainingQueueCapacity = this.tpe.getQueue().remainingCapacity();
         int minQueueCapacity = this.tpe.getMinRemainingQueueCapacity();
         int corePoolSize = this.tpe.getCorePoolSize();
@@ -54,7 +63,7 @@ public class Pipeline {
         if (handler != null) {
             rejectedExecutionHandlerName = handler.getClass().getSimpleName();
         }
-        return new Statistics(this.pipelineName, remainingQueueCapacity, minQueueCapacity, completedTaskCount, activeThreadCount, corePoolSize, largestThreadPoolSize, currentThreadPoolSize, totalNumberOfTasks, maximumPoolSize, rejectedExecutionHandlerName, this.rejectedTasks.get());
+        return new Statistics(hostName, this.pipelineName, remainingQueueCapacity, minQueueCapacity, completedTaskCount, activeThreadCount, corePoolSize, largestThreadPoolSize, currentThreadPoolSize, totalNumberOfTasks, maximumPoolSize, rejectedExecutionHandlerName, this.rejectedTasks.get());
 
     }
 

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Statistics {
 
+    private String hostName;
     private String pipelineName;
     private int remainingQueueCapacity;
     private int minQueueCapacity;
@@ -34,7 +35,8 @@ public class Statistics {
     private long rejectedTasks;
     private int corePoolSize;
 
-    public Statistics(String pipelineName, int remainingQueueCapacity, int minQueueCapacity, long completedTaskCount, int activeThreadCount, int corePoolSize, int largestThreadPoolSize, int currentThreadPoolSize, long totalNumberOfTasks, int maximumPoolSize, String rejectedExecutionHandlerName, long rejectedTasks) {
+    public Statistics(String hostName, String pipelineName, int remainingQueueCapacity, int minQueueCapacity, long completedTaskCount, int activeThreadCount, int corePoolSize, int largestThreadPoolSize, int currentThreadPoolSize, long totalNumberOfTasks, int maximumPoolSize, String rejectedExecutionHandlerName, long rejectedTasks) {
+        this.hostName = hostName;
         this.pipelineName = pipelineName;
         this.remainingQueueCapacity = remainingQueueCapacity;
         this.minQueueCapacity = minQueueCapacity;
@@ -52,6 +54,10 @@ public class Statistics {
     public Statistics() {
     }
 
+    public String getHostName() {
+        return hostName;
+    }
+    
     public int getRemainingQueueCapacity() {
         return remainingQueueCapacity;
     }
@@ -102,7 +108,7 @@ public class Statistics {
 
     @Override
     public String toString() {
-        return "Statistics{" + "pipelineName=" + pipelineName + ", remainingQueueCapacity=" + remainingQueueCapacity + ", minQueueCapacity=" + minQueueCapacity + ", completedTaskCount=" + completedTaskCount + ", activeThreadCount=" + activeThreadCount + ", largestThreadPoolSize=" + largestThreadPoolSize + ", currentThreadPoolSize=" + currentThreadPoolSize + ", totalNumberOfTasks=" + totalNumberOfTasks + ", maximumPoolSize=" + maximumPoolSize + ", rejectedExecutionHandlerName=" + rejectedExecutionHandlerName + ", rejectedTasks=" + rejectedTasks + ", corePoolSize=" + corePoolSize + '}';
+        return "Statistics{" + "hostName=" + hostName + "pipelineName=" + pipelineName + ", remainingQueueCapacity=" + remainingQueueCapacity + ", minQueueCapacity=" + minQueueCapacity + ", completedTaskCount=" + completedTaskCount + ", activeThreadCount=" + activeThreadCount + ", largestThreadPoolSize=" + largestThreadPoolSize + ", currentThreadPoolSize=" + currentThreadPoolSize + ", totalNumberOfTasks=" + totalNumberOfTasks + ", maximumPoolSize=" + maximumPoolSize + ", rejectedExecutionHandlerName=" + rejectedExecutionHandlerName + ", rejectedTasks=" + rejectedTasks + ", corePoolSize=" + corePoolSize + '}';
     }
 
 }
